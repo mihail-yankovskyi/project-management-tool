@@ -1,0 +1,42 @@
+<form [formGroup]="registerForm" class="register-form" novalidate>
+  <div class="inputs-wrapper">
+    <mat-form-field class="example-full-width">
+      <mat-label>Name</mat-label>
+      <input type="name" matInput formControlName="name" placeholder="Mihail">
+      <mat-error *ngIf="name?.hasError('minlength') || name?.hasError('maxlength')">Please enter a valid name</mat-error>
+      <mat-error *ngIf="name?.hasError('required')">Name is <strong>required</strong></mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Surname</mat-label>
+      <input type="name" matInput formControlName="surname" placeholder="Yankovskyi">
+      <mat-error *ngIf="name?.hasError('minlength') || name?.hasError('maxlength')">Please enter a valid surname</mat-error>
+      <mat-error *ngIf="name?.hasError('required')">Surname is <strong>required</strong></mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+      <mat-error *ngIf="email?.hasError('email') && !email?.hasError('required')">Please enter a valid email address</mat-error>
+      <mat-error *ngIf="email?.hasError('required')">Email is <strong>required</strong></mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput formControlName="password">
+        <mat-error *ngIf="password?.hasError('minlength') || password?.hasError('maxlength')">Please enter a valid password</mat-error>
+        <mat-error *ngIf="password?.hasError('required')">Password is <strong>required</strong></mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Repeat the password</mat-label>
+      <input type="password" matInput formControlName="secondPassword">
+      <mat-error *ngIf="password?.hasError('minlength') || password?.hasError('maxlength')">Please enter a valid password</mat-error>
+      <mat-error *ngIf="password?.hasError('required')">Password is <strong>required</strong></mat-error>
+    </mat-form-field>
+
+    <div class="button-wrapper">
+      <button mat-flat-button (click)="register()">Register</button>
+    </div>
+  </div>
+</form>
