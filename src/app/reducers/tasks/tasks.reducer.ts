@@ -1,13 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
 import { getTasksSuccess } from './tasks.actions';
-import { ITaskItem } from '../../shared/interfaces/task-item.interface';
+import { ITasksByList } from '../../shared/interfaces/task-item.interface';
 
 export interface ITasksState {
-  allTasks: ITaskItem[];
+  allTasks: ITasksByList | null;
 }
 
 export const initialTodoState: ITasksState = {
-  allTasks: []
+  allTasks: null
 };
 
 export const tasksReducer = createReducer(

@@ -43,7 +43,7 @@ export class TaskColumnComponent implements OnInit {
 
   getCurrentTasks(): void {
     if (this.list?.id) {
-      this.taskService.getTasks(this.list.id).subscribe((tasks) => {
+      this.taskService.getTasksByList(this.list.id).subscribe((tasks) => {
         tasks = tasks.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
         this.tasks$.next(tasks);
         this.cdr.markForCheck();

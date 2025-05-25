@@ -31,3 +31,7 @@ export interface ITeam {
   name: string;
   updatedAt?: any
 }
+
+export interface ITasksByList {
+  [listId: string]: ITaskItem[];
+}

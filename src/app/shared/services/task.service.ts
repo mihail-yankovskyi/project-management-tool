@@ -15,7 +15,7 @@ import {
 import { getDoc, getDocs, runTransaction, serverTimestamp } from 'firebase/firestore';
 import { from, Observable, of, throwError } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { IList, ITaskItem, ITeam } from '../interfaces/task-item.interface';
+import { IList, ITaskItem, ITasksByList, ITeam } from '../interfaces/task-item.interface';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -119,10 +119,44 @@ export class TaskService{
     }
   }
 
-  getTasks(listId: string): Observable<ITaskItem[]> {
+  getTasksByList(listId: string): Observable<ITaskItem[]> {
     const tasksRef = collection(this.firestore, 'tasks');
     const listTasksQuery = query(tasksRef, where('listId', '==', listId));
     return collectionData(listTasksQuery, { idField: 'id' }) as Observable<ITaskItem[]>;
+  }
+
+  getAllTasksGrouped(): Observable<ITasksByList> {
+    const tasksRef = collection(this.firestore, 'tasks');
+    return collectionData(tasksRef, { idField: 'id' }).pipe(
+      map((tasks: any[]) => {
+        const groupedTasks: { [listId: string]: ITaskItem[] } = {};
+
+        tasks.forEach((task) => {
+          const taskItem: ITaskItem = {
+            id: task.id,
+            listId: task.listId,
+            title: task.title,
+            showedId: task.showedId,
+            description: task.description,
+            userId: task.createdByUserId,
+            assignedTo: task.assignedTo,
+            createdOn: task.createdOn,
+            dueDate: task.dueDate,
+            estimatedStoryPoints: task.estimatedStoryPoints,
+            actualStoryPoints: task.actualStoryPoints,
+            order: task.order
+          };
+
+          if (!groupedTasks[task.listId]) {
+            groupedTasks[task.listId] = [];
+          }
+
+          groupedTasks[task.listId].push(taskItem);
+        });
+
+        return groupedTasks;
+      })
+    );
   }
 
   async getNextTaskId(): Promise<number> {
@@ -214,23 +248,23 @@ export class TaskService{
     );
   }
 
-updateTeam(teamId: string, teamData: Partial<ITeam>): Observable<any> {
-  return authState(this.auth).pipe(
-    switchMap(user => {
-      if (user) {
-        const teamRef = doc(this.firestore, 'teams', teamId);
-        const updateData = {
-          ...teamData,
-          updatedAt: serverTimestamp()
-        };
+  updateTeam(teamId: string, teamData: Partial<ITeam>): Observable<any> {
+    return authState(this.auth).pipe(
+      switchMap(user => {
+        if (user) {
+          const teamRef = doc(this.firestore, 'teams', teamId);
+          const updateData = {
+            ...teamData,
+            updatedAt: serverTimestamp()
+          };
 
-        return from(updateDoc(teamRef, updateData));
-      } else {
-        return throwError(() => new Error('User not authenticated'));
-      }
-    })
-  );
-}
+          return from(updateDoc(teamRef, updateData));
+        } else {
+          return throwError(() => new Error('User not authenticated'));
+        }
+      })
+    );
+  }
 
   getTeamLists(teamId: string): Observable<IList[]> {
     const listsRef = collection(this.firestore, 'lists');
