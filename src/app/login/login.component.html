@@ -1,22 +1,38 @@
-<form [formGroup]="loginForm" class="register-form" novalidate>
-  <div class="inputs-wrapper">
-    <mat-form-field class="example-full-width">
-      <mat-label>Email</mat-label>
-      <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
-      <mat-error *ngIf="email?.hasError('email') && !email?.hasError('required')">Please enter a valid email address</mat-error>
-      <mat-error *ngIf="email?.hasError('required')">Email is <strong>required</strong></mat-error>
-    </mat-form-field>
+<div class="register-form">
+  <form [formGroup]="loginForm" novalidate>
+    <div class="inputs-wrapper">
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+        @if (email?.hasError('email') && !email?.hasError('required')) {
+          <mat-error>Please enter a valid email address</mat-error>
+        }
 
-    <mat-form-field class="example-full-width">
-      <mat-label>Password</mat-label>
-      <input type="password" matInput formControlName="password">
-        <mat-error *ngIf="password?.hasError('minlength') || password?.hasError('maxlength')">Please enter a valid password</mat-error>
-        <mat-error *ngIf="password?.hasError('required')">Password is <strong>required</strong></mat-error>
-    </mat-form-field>
+        @if (email?.hasError('required')) {
+          <mat-error>Email is <strong>required</strong></mat-error>
+        }
+      </mat-form-field>
 
-    <div class="button-wrapper">
-      <button mat-flat-button (click)="login()">Login</button>
+      <mat-form-field class="example-full-width">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput formControlName="password">
+          @if (password?.hasError('minlength') || password?.hasError('maxlength')) {
+            <mat-error>Please enter a valid password</mat-error>
+          }
+
+          @if (password?.hasError('required')) {
+            <mat-error>Password is <strong>required</strong></mat-error>
+          }
+      </mat-form-field>
+
+      <div class="button-wrapper">
+        <button mat-flat-button (click)="login()">Login</button>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
 
+  <div class="register">
+    <span>Not a member? </span>
+    <a class="register-link" href="register">Register now</a>
+  </div>
+</div>

@@ -1,18 +1,63 @@
 .header {
   width: 100%;
   height: 90px;
-  border-bottom: 2px solid  rgb(82, 253, 3);
+  border-bottom: 2px solid  rgb(124, 253, 3);
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: space-between;
+  box-shadow: 0 0 2px 0;
+
+  .wrapper {
+    display: flex;
+    align-items: center;
+
+    .description {
+      font-weight: 500;
+      font-size: x-large;
+      padding-left: 40px;
+      color: black;
+      border-right: 2px solid black;
+      padding-right: 30px;
+    }
+
+    .team-name {
+      font-weight: 500;
+      font-size: x-large;
+      margin-left: 30px;
+    }
+  }
 
   .personal-information {
+    padding-right: 2%;
 
-    .name-surname{
-      // width: 100;
+    .initials {
+      height: 60px;
+      display: inline-block;
       font-size: 21px;
       font-weight: 500;
       margin-right: 15%;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .name-surname{
+      display: inline-block;
+      font-size: 21px;
+      font-weight: 500;
+      white-space: nowrap;
+      width: auto;
+      margin: 0 auto;
     }
   }
+}
+
+.name-wrapper {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 50px;
+}
+
+.logout {
+  display: flex;
+  justify-content: center;
 }

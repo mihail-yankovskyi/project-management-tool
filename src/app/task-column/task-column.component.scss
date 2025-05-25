@@ -1,0 +1,101 @@
+.header {
+  display: flex;
+  height: 50px;
+  border-radius: 5px;
+}
+
+.title {
+  font-size: medium;
+  margin: auto 0 auto 20px;
+  font-weight: 600;
+}
+
+.interactions {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+  padding-right: 16px;
+  align-items: center;
+}
+
+.buttons {
+  height: 37px !important;
+  width: 37px !important;
+  min-width: unset !important;
+  padding: 0 !important;
+  background-color: transparent !important;
+  position: relative !important;
+  box-shadow: none !important;
+}
+
+.buttons {
+  font-size: 17px;
+}
+
+.buttons .mat-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+  padding-right: 1px;
+}
+
+.add-button .mat-icon {
+  font-size: 23px;
+}
+
+.example-container {
+  width: 400px;
+  padding-top: 30px;
+}
+
+.example-list {
+  min-height: 100px;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  display: block;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-list {
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.example-list::-webkit-scrollbar {
+  display: none;
+}
+
+.example-full-width {
+  width: 497px;
+}
+
+.column-0 {
+  background-color: #E2F3FD;
+}
+
+.column-1 {
+  background-color: #FFEEB9;
+}
+
+.column-2 {
+  background-color: #FFE1F9;
+}
+
+.column-3 {
+  background-color: #FFE4E8;
+}

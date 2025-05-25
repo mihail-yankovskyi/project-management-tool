@@ -1,0 +1,14 @@
+<div class="task-card" cdkDrag (click)="onTaskClick()" [ngClass]="{'is-actual-story-poinst-border': isActualPoints, 'due-date-in-past-border': isPastDue}">
+  <div class="wrapper">
+    <div class="task-title-wrapper">
+      <div class="task-title">{{ task.title.substring(0, 35) }}</div>
+    </div>
+    <div class="initials-date-wrapper">
+      <div class="initials-wrapper">
+        <div class="initials">{{ initials }}</div>
+      </div>
+      <div class="task-date" [ngClass]="{'is-actual-story-poinst': isActualPoints, 'due-date-in-past': isPastDue}">{{ formattedDueDate }}</div>
+    </div>
+  </div>
+</div>
+

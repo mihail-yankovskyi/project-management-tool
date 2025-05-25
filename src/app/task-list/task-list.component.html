@@ -1,0 +1,10 @@
+<div class="task-list" cdkDropListGroup>
+  @for (list of lists; track list.id; let i = $index) {
+    <app-task-column
+      [list]="list"
+      [showButton]="i === 0"
+      [columnIndex]="i"
+    ></app-task-column>
+  }
+</div>
+

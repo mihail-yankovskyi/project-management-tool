@@ -1,6 +1,22 @@
 <div class="header">
+  <div class="wrapper">
+    <h1 class="description">Project management tool prototype</h1>
+    @if (teamName$ | async) {
+      <div class="team-name">{{ teamName$ | async }}</div>
+    }
+  </div>
   <div class="personal-information">
-    <div class="name-surname">Mihail Yankovskyi</div>
-    <div class="photo"></div>
+    <button class="initials" mat-button [matMenuTriggerFor]="beforeMenu">{{ initials$ | async }}</button>
+    <mat-menu class="menu" #beforeMenu="matMenu" xPosition="before">
+      <div class="name-wrapper">
+        <div class="name-surname">{{ userName$ | async }}</div>
+      </div>
+      <div class="logout">
+        <button mat-raised-button (click)="addMember()">Add Member</button>
+      </div>
+      <div class="logout">
+        <button mat-raised-button (click)="logout()">Log out</button>
+      </div>
+    </mat-menu>
   </div>
 </div>

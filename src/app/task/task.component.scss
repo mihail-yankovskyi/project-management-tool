@@ -1,0 +1,90 @@
+.task-card {
+  padding: 25px 20px 0 20px;
+  margin-bottom: 12px;
+  height: 110px;
+  border: solid 1px #eaeaea;
+  border-radius: 8px;
+  color: rgba(0, 0, 0, 0.87);
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: pointer;
+  background: white;
+  font-size: 17px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  // transition: all 0.1s ease;
+
+  &:hover {
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+    border-right: #d8d8d8;
+    border-top: #d8d8d8;
+    border-bottom: #d8d8d8;
+  }
+
+  .wrapper {
+    display: block;
+
+    .task-title-wrapper {
+      display: block;
+      font-size: 18px;
+
+      .task-title {
+        font-weight: 500;
+        color: #333;
+      }
+    }
+
+    .initials-date-wrapper {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 20px;
+
+      .initials-wrapper {
+        display: flex;
+        width: 40px;
+        height: 20px;
+
+        .initials {
+          font-size: 16px;
+          font-weight: 600;
+          color: #005CBB;
+        }
+      }
+
+      .task-date {
+        color: #000000;
+        font-size: 15px;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.3;
+}
+
+.cdk-drag-animating {
+  transition: transform 350ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.due-date-in-past {
+  color: red !important;
+}
+
+.due-date-in-past-border {
+  border-left: 5px solid red;
+}
+
+.is-actual-story-poinst {
+  color: rgb(0, 214, 29) !important;
+}
+
+.is-actual-story-poinst-border {
+  border-left: 5px solid rgb(106, 255, 47);
+}

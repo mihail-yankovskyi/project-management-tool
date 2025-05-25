@@ -1,6 +1,7 @@
 .register-form {
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -30,6 +31,15 @@
     .mat-mdc-unelevated-button:hover {
       background-color: #04ba71;
       ;
+    }
+  }
+
+  .login {
+    margin-top: 16px;
+
+    .login-link {
+      text-decoration: none;
+      color: #08cf65;
     }
   }
 }

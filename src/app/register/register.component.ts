@@ -3,11 +3,9 @@ import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angu
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { AuthService } from '../shared/services/auth.service';
-import { Auth } from '@angular/fire/auth';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { register } from '../reducers/user/user.actions';
 
 @Component({
   selector: 'app-register',
@@ -47,21 +45,15 @@ export class RegisterComponent {
   }
 
   constructor (
-    private authService: AuthService, private router: Router
+    private store: Store
   ) {}
 
   register() {
-    this.authService.register({
-      name: this.name?.value!,
-      surname: this.surname?.value!,
-      email: this.email?.value!,
-      password: this.password?.value!
-    }).subscribe({
-      next: user => {
-        console.log(user);
-        this.router.navigate(['/'])
-      },
-      error: err => alert('Error: ' + err.message),
-    });
+    this.store.dispatch(register({
+      name: this.name!.value!,
+      surname: this.surname!.value!,
+      email: this.email!.value!,
+      password: this.password!.value!
+    }))
   }
 }

@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>Edit ToDo</h2>
+<mat-dialog-content class="mat-typography">
+
+  <form [formGroup]="taskForm" class="example-form">
+    <h3>Assigned to</h3>
+    <mat-form-field class="example-full-width">
+      <mat-label>Assignee</mat-label>
+      <input type="text" matInput formControlName="assignedTo"  [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        @for (option of filteredOptions$ | async; track option) {
+          <mat-option [value]="option">{{option.displayName}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <h3>Title of ToDo</h3>
+    <mat-form-field class="example-full-width">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" cdkFocusInitial>
+    </mat-form-field>
+
+    <h3>Description</h3>
+    <mat-form-field class="example-full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+    <h3>Due date</h3>
+    <mat-form-field class="example-full-width">
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" formControlName="dueDate" [min]="minDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <h3>Estimated story points</h3>
+    <mat-form-field class="example-full-width">
+      <mat-label>Story points</mat-label>
+      <input matInput formControlName="estimatedStoryPoints" placeholder="Number" type="number">
+    </mat-form-field>
+
+    <h3>Actual story points</h3>
+    <mat-form-field class="example-full-width">
+      <mat-label>Actual story points</mat-label>
+      <input matInput formControlName="actualStoryPoints" placeholder="Number" type="number">
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button (click)="update()">Update</button>
+</mat-dialog-actions>

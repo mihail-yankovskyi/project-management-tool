@@ -1,1 +1,34 @@
 <app-header></app-header>
+
+@if (allListsIsLoading$ | async) {
+  <div class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+}
+
+
+@if ((lists$ | async)?.length && !(allListsIsLoading$ | async)){
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab label="Board">
+      <div class="board-wrapper">
+        <app-task-list [lists]="lists$ | async"></app-task-list>
+      </div>
+    </mat-tab>
+    <mat-tab label="Second">Content 2</mat-tab>
+    <mat-tab label="Third">Content 3</mat-tab>
+  </mat-tab-group>
+}
+
+@if (!(lists$ | async)?.length && !(allListsIsLoading$ | async)) {
+  <div class="wrapper">
+    <div>
+      Welcome to Project Management Tool
+    </div>
+    <div>
+      Get Started:
+    </div>
+    <div>
+      <span (click)="creatNewBoard()">Create a new board</span> or wait for the invite to join the team
+    </div>
+  </div>
+}

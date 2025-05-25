@@ -1,0 +1,16 @@
+<!-- Add team name to model -->
+<h2 mat-dialog-title>Add User To Team</h2>
+<mat-dialog-content class="mat-typography">
+
+  <form [formGroup]="addUserForm" class="example-form">
+    <h3>User email</h3>
+    <mat-form-field class="example-full-width">
+      <mat-label>Enter user email</mat-label>
+      <input matInput formControlName="email" cdkFocusInitial>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button (click)="addUser()">Add</button>
+</mat-dialog-actions>

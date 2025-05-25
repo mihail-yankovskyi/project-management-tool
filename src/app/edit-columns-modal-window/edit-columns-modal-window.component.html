@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>Update Columns</h2>
+<mat-dialog-content class="mat-typography">
+
+  <form [formGroup]="columnForm" class="example-form">
+    <h3>Title column 1</h3>
+    <mat-form-field class="example-full-width">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title1" cdkFocusInitial>
+    </mat-form-field>
+
+    <h3>Title column 2</h3>
+    <mat-form-field class="example-full-width">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title2" cdkFocusInitial>
+    </mat-form-field>
+
+    <h3>Title column 3</h3>
+    <mat-form-field class="example-full-width">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title3" cdkFocusInitial>
+    </mat-form-field>
+
+    <h3>Title column 4</h3>
+    <mat-form-field class="example-full-width">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title4" cdkFocusInitial>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button (click)="update()">Update</button>
+</mat-dialog-actions>

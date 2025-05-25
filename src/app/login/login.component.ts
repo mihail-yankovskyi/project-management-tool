@@ -3,11 +3,9 @@ import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angu
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { AuthService } from '../shared/services/auth.service';
-import { Auth } from '@angular/fire/auth';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { CommonModule } from '@angular/common';
-import { ILogin } from '../shared/interfaces/login.interface';
+import { Store } from '@ngrx/store';
+import { login } from '../reducers/user/user.actions';
 
 @Component({
   selector: 'app-login',
@@ -31,18 +29,13 @@ export class LoginComponent {
     return this.loginForm.get('password');
   }
 
-  constructor(private authService: AuthService) {}
+  constructor(private store: Store) {}
 
   login() {
-    this.authService.login({
+    this.store.dispatch(login({
       email: this.email?.value!,
       password: this.password?.value!
-    }).subscribe({
-      next: user => {
-        console.log(user);
-      },
-      error: err => alert('Error: ' + err.message),
-    });
+    }));
   }
 }
 

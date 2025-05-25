@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from './shared/services/auth.service';
 
@@ -6,7 +6,8 @@ import { AuthService } from './shared/services/auth.service';
   selector: 'app-root',
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
   constructor(private authService: AuthService) {}
@@ -18,5 +19,4 @@ export class AppComponent implements OnInit {
   checkIsLoggedIn(): void {
     this.authService.checkIsLoggedIn();
   }
-
 }

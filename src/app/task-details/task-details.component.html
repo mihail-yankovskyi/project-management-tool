@@ -1,0 +1,107 @@
+<div class="task-details-container">
+  <div class="task-header">
+    <div class="task-title-section">
+      <h2 class="task-title">{{ task.title }}</h2>
+      <div class="user-info">
+        <div class="initials" [ngStyle]="{'background-color': (userColor$ | async)}">
+          {{ initials$ | async }}
+        </div>
+        <div class="user-name">{{ userName$ | async}}</div>
+      </div>
+    </div>
+    <button mat-icon-button class="close-button" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="task-content">
+    <div class="info-section">
+      <div class="info-row description-section">
+        <div class="info-label">Description</div>
+        <div class="info-value">
+          <div class="description">{{ task.description }}</div>
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-column">
+          <div class="info-row">
+            <div class="info-label">Due Date</div>
+            @if (task.dueDate) {
+              <div class="info-value date-chip" [ngClass]="{'is-actual-story-poinst': isActualPoints, 'due-date-in-past': isPastDue}">
+                <mat-icon>event</mat-icon>
+                <span>{{ formatDate(task.dueDate) }}</span>
+              </div>
+            }
+            @if (!task.dueDate) {
+              <div class="info-value">Not set</div>
+            }
+          </div>
+
+          <div class="info-row">
+            <div class="info-label">Created</div>
+            @if (task.createdOn) {
+              <div class="info-value date-chip">
+                <mat-icon>event</mat-icon>
+                <span>{{ formatDate(task.createdOn) }}</span>
+              </div>
+            }
+          </div>
+
+          <div class="info-row">
+            <div class="info-label">Column</div>
+            <div class="info-value">
+              <div class="points">{{ listName$ | async }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-column">
+          <div class="info-row">
+            <div class="info-label">Estimated Points</div>
+            <div class="info-value">
+              <div class="points">{{ task.estimatedStoryPoints }}</div>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-label">Actual Points</div>
+            @if (task.actualStoryPoints) {
+              <div class="info-value">
+                <div class="points">{{ task.actualStoryPoints }}</div>
+              </div>
+            }
+            @if (!task.actualStoryPoints) {
+              <div class="info-value">
+                <div class="points">Not completed</div>
+              </div>
+            }
+          </div>
+
+          <div class="info-row">
+            <div class="info-label">ID</div>
+            <div class="info-value">
+              <div class="points">{{ task.showedId }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="task-footer">
+    <button mat-button color="warn" class="action-button delete-button" (click)="deleteTask()">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <div class="spacer"></div>
+    <button mat-button mat-dialog-close class="action-button">Cancel</button>
+    <button mat-raised-button color="primary" class="action-button" (click)="editTask()">
+      <mat-icon>edit</mat-icon>
+      Edit
+    </button>
+  </div>
+</div>

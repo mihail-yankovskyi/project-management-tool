@@ -1,0 +1,55 @@
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: rgb(124, 253, 3);
+}
+
+mat-tab-group {
+  padding-top: 50px;
+}
+
+.board-wrapper {
+  padding-top: 30px;
+}
+
+.wrapper {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 40px 30px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  text-align: center;
+}
+
+.wrapper div:first-child {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.wrapper div:nth-child(2) {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #665;
+}
+
+.wrapper span {
+  color: #007bff;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.wrapper span:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
