@@ -29,4 +29,5 @@ export interface ITeam {
   members: string[];
   teamAdmin: string;
   name: string;
+  updatedAt?: any
 }

@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { getTeamDetailsSuccess } from './team.actions';
+import { getTeamDetailsSuccess, updateTeamDetailsSuccess } from './team.actions';
 import { ITeam } from '../../shared/interfaces/task-item.interface';
 
 export interface ITeamState {
@@ -15,5 +15,18 @@ export const teamReducer = createReducer(
   on(getTeamDetailsSuccess, (state, props) => ({
     ...state,
     currentTeam: props.team
-  }))
+  })),
+  on(updateTeamDetailsSuccess, (state, props) => {
+    if (state.currentTeam) {
+      return {
+        ...state,
+        currentTeam: {
+        ...state.currentTeam,
+        ...props.teamData
+        }
+      };
+    } else {
+      return { currentTeam: null };
+    }
+  })
 );

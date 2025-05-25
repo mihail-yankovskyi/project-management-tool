@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { AuthService } from "../../shared/services/auth.service";
 import { catchError, of, switchMap } from "rxjs";
-import { getTeamDetails, getTeamDetailsFailed, getTeamDetailsSuccess } from "./team.actions";
+import { getTeamDetails, getTeamDetailsFailed, getTeamDetailsSuccess, updateTeamDetails, updateTeamDetailsFailed, updateTeamDetailsSuccess } from "./team.actions";
 import { TaskService } from "../../shared/services/task.service";
 import { getUsers } from "../team-users/team-users.actions";
 import { getLists, setListsLoading } from "../lists/lists.actions";
@@ -45,6 +45,23 @@ export class TeamEffects {
     ofType(getTeamDetailsSuccess),
     switchMap(() => {
       return [getUsers(), getLists()];
+    }),
+  ));
+
+  updateTeamDetails$ = createEffect(() => this.actions$.pipe(
+    ofType(updateTeamDetails),
+    switchMap((action) => {
+      return this.taskService.updateTeam(action.teamId, action.teamData).pipe(
+        switchMap((result) => {
+          const team = result[0];
+
+          return [updateTeamDetailsSuccess({
+            teamId: action.teamId,
+            teamData: team
+          })];
+        }),
+        catchError(() => of(updateTeamDetailsFailed()))
+      )
     }),
   ));
 }

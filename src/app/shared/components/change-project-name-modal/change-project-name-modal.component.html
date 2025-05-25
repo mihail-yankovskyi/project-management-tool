@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Change Project Name</h2>
+<mat-dialog-content class="mat-typography">
+
+  <form [formGroup]="form" class="example-form">
+    <h3>Project Name</h3>
+    <mat-form-field class="example-full-width">
+      <mat-label>Enter project name</mat-label>
+      <input matInput formControlName="projectName" cdkFocusInitial>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button (click)="save()">Save</button>
+</mat-dialog-actions>

@@ -10,6 +10,7 @@ import { logout } from '../reducers/user/user.actions';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserToTeamModal } from '../shared/components/add-user-to-team-modal/add-user-to-team-modal.component';
 import { selectTeamName } from '../reducers/team/team.selectors';
+import { ChangeProjectNameModal } from '../shared/components/change-project-name-modal/change-project-name-modal.component';
 
 @Component({
   selector: 'app-header',
@@ -40,6 +41,12 @@ export class HeaderComponent {
 
   addMember(): void {
     const dialogRef = this.dialog.open(AddUserToTeamModal);
+
+    dialogRef.afterClosed().subscribe();
+  }
+
+  changeProjectName(): void {
+    const dialogRef = this.dialog.open(ChangeProjectNameModal);
 
     dialogRef.afterClosed().subscribe();
   }

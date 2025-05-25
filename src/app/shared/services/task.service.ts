@@ -12,8 +12,8 @@ import {
   where,
   writeBatch
 } from '@angular/fire/firestore';
-import { getDoc, getDocs, runTransaction } from 'firebase/firestore';
-import { from, Observable, of } from 'rxjs';
+import { getDoc, getDocs, runTransaction, serverTimestamp } from 'firebase/firestore';
+import { from, Observable, of, throwError } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { IList, ITaskItem, ITeam } from '../interfaces/task-item.interface';
 import { AuthService } from './auth.service';
@@ -213,6 +213,24 @@ export class TaskService{
       })
     );
   }
+
+updateTeam(teamId: string, teamData: Partial<ITeam>): Observable<any> {
+  return authState(this.auth).pipe(
+    switchMap(user => {
+      if (user) {
+        const teamRef = doc(this.firestore, 'teams', teamId);
+        const updateData = {
+          ...teamData,
+          updatedAt: serverTimestamp()
+        };
+
+        return from(updateDoc(teamRef, updateData));
+      } else {
+        return throwError(() => new Error('User not authenticated'));
+      }
+    })
+  );
+}
 
   getTeamLists(teamId: string): Observable<IList[]> {
     const listsRef = collection(this.firestore, 'lists');
