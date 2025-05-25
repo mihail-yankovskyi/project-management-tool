@@ -51,7 +51,7 @@ export class TaskColumnComponent implements OnInit {
     }
   }
 
-  drop(event: CdkDragDrop<ITaskItem[]>) {
+  drop(event: CdkDragDrop<ITaskItem[]>): void {
     const currentTasks = [...this.tasks$.value];
 
     if (event.previousContainer === event.container) {
