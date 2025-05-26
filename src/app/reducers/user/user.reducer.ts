@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { loginSuccess, logout } from './user.actions';
+import { loginSuccess, logout, setUser } from './user.actions';
 
 export interface IUserState {
   displayName: string;
@@ -21,5 +21,11 @@ export const userReducer = createReducer(
     displayName,
     isLoggedIn: true,
   })),
-  on(logout, () => initialUserState)
+  on(logout, () => initialUserState),
+  on(setUser, (state, { email, displayName }) => ({
+    ...state,
+    email,
+    displayName,
+    isLoggedIn: true,
+  })),
 );

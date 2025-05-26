@@ -1,6 +1,6 @@
 <div class="header">
   <div class="wrapper">
-    <h1 class="description">Project management tool prototype</h1>
+    <h1 class="description" [class.with-team]="teamName$ | async">Project management tool prototype</h1>
     @if (teamName$ | async) {
       <div class="team-name">{{ teamName$ | async }}</div>
     }

@@ -1,0 +1,2 @@
+<app-header></app-header>
+<div *ngFor="let user of (usersList$ | async)">{{ user.displayName }}</div>

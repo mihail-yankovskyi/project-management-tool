@@ -16,8 +16,6 @@
       font-size: x-large;
       padding-left: 40px;
       color: black;
-      border-right: 2px solid black;
-      padding-right: 30px;
     }
 
     .team-name {
@@ -60,4 +58,9 @@
 .logout {
   display: flex;
   justify-content: center;
+}
+
+.with-team {
+  border-right: 2px solid black;
+  padding-right: 30px;
 }

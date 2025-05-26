@@ -28,6 +28,7 @@ export class UserEffects {
     ofType(loginSuccess),
     switchMap(() => {
       this.router.navigate(['/']);
+
       return [getTeamDetails()];
     }),
   ));
@@ -42,6 +43,9 @@ export class UserEffects {
         password: action.password
       }).pipe(
         switchMap((user) => {
+          if(user) {
+            this.router.navigate(['/']);
+          }
           return [loginSuccess({ email: user?.email || '', displayName: user?.displayName || ''})];
         }),
         catchError(() => of(registerFailed()))

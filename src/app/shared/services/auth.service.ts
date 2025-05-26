@@ -3,7 +3,7 @@ import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signO
 import { from, map, Observable, switchMap } from 'rxjs';
 import { IRegister } from '../interfaces/register.interface';
 import { Store } from '@ngrx/store';
-import { loginSuccess } from '../../reducers/user/user.actions';
+import { loginSuccess, setUser } from '../../reducers/user/user.actions';
 import {
   Firestore,
   collection,
@@ -15,6 +15,7 @@ import {
 } from '@angular/fire/firestore';
 import { getDoc, getDocs } from 'firebase/firestore';
 import { IUser } from '../interfaces/user.interface';
+import { getTeamDetails } from '../../reducers/team/team.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -59,7 +60,8 @@ export class AuthService {
   checkIsLoggedIn(): void {
     this.auth.onAuthStateChanged((user) => {
       if (user) {
-        this.store.dispatch(loginSuccess({ email: user.email || '', displayName: user.displayName || '' }))
+        this.store.dispatch(setUser({ email: user.email || '', displayName: user.displayName || '' }));
+        this.store.dispatch(getTeamDetails());
       }
     });
   }
