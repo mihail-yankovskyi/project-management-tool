@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { getTeamDetailsSuccess, updateTeamDetailsSuccess } from './team.actions';
+import { getTeamDetailsSuccess, removeUserFromTeam, updateTeamDetailsSuccess } from './team.actions';
 import { ITeam } from '../../shared/interfaces/task-item.interface';
 
 export interface ITeamState {
@@ -27,6 +27,19 @@ export const teamReducer = createReducer(
       };
     } else {
       return { currentTeam: null };
+    }
+  }),
+  on(removeUserFromTeam, (state, { memberId }) => {
+    if (state.currentTeam) {
+      return {
+        ...state,
+        currentTeam: {
+          ...state.currentTeam,
+          members: state.currentTeam.members.filter((uid) => uid !== memberId)
+        }
+      };
+    } else {
+      return { currentTeam: null }
     }
   })
 );

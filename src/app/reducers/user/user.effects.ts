@@ -4,7 +4,8 @@ import { AuthService } from "../../shared/services/auth.service";
 import { login, loginFailed, loginSuccess, logout, register, registerFailed } from "./user.actions";
 import { catchError, of, switchMap, tap } from "rxjs";
 import { Router } from "@angular/router";
-import { getTeamDetails } from "../team/team.actions";
+import { getTeamDetails, removeUserFromTeam } from "../team/team.actions";
+import { removeTeamFromUserSuccess } from "../team-users/team-users.actions";
 
 @Injectable()
 export class UserEffects {
@@ -61,4 +62,9 @@ export class UserEffects {
       )
     }),
   ), {dispatch: false});
+
+  removeTeamFromUserSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(removeTeamFromUserSuccess),
+    switchMap((action) => [removeUserFromTeam({ memberId: action.uid })])
+  ));
 }

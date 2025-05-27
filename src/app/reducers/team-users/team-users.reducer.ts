@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { IUser } from '../../shared/interfaces/user.interface';
-import { getUsersSuccess } from './team-users.actions';
+import { getUsersSuccess, removeTeamFromUserSuccess } from './team-users.actions';
 
 export interface ITeamUsersState {
   teamUsers: IUser[];
@@ -18,5 +18,11 @@ export const teamUsersReducer = createReducer(
       ...users,
       {uid: null, displayName: 'Unassigned'}
     ]
-  }))
+  })),
+  on(removeTeamFromUserSuccess, (state, { uid }) => {
+    return {
+      ...state,
+      teamUsers: state.teamUsers.filter((teamUser) => teamUser.uid !== uid)
+    }
+  })
 );

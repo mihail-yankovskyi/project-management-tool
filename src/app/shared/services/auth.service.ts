@@ -3,7 +3,7 @@ import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signO
 import { from, map, Observable, switchMap } from 'rxjs';
 import { IRegister } from '../interfaces/register.interface';
 import { Store } from '@ngrx/store';
-import { loginSuccess, setUser } from '../../reducers/user/user.actions';
+import { setUser } from '../../reducers/user/user.actions';
 import {
   Firestore,
   collection,
@@ -13,7 +13,7 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore';
-import { getDoc, getDocs } from 'firebase/firestore';
+import { arrayRemove, DocumentReference, getDoc, getDocs, writeBatch } from 'firebase/firestore';
 import { IUser } from '../interfaces/user.interface';
 import { getTeamDetails } from '../../reducers/team/team.actions';
 
@@ -141,6 +141,27 @@ export class AuthService {
       });
 
       return users;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  async removeUserFromTeam(teamId: string, userId: string): Promise<void> {
+    try {
+      const batch = writeBatch(this.firestore);
+      const teamRef: DocumentReference = doc(this.firestore, 'teams', teamId);
+      const userRef: DocumentReference = doc(this.firestore, 'users', userId);
+
+      batch.update(teamRef, {
+        members: arrayRemove(userId)
+      });
+
+      batch.update(userRef, {
+        teamId: null
+      });
+
+      await batch.commit();
     } catch (error) {
       console.error(error);
       throw error;

@@ -27,5 +27,5 @@ export const userReducer = createReducer(
     email,
     displayName,
     isLoggedIn: true,
-  })),
+  }))
 );
