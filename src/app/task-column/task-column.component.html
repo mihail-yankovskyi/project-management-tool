@@ -1,17 +1,17 @@
 <div class="header" [ngClass]="'column-' + columnIndex">
   <h2 class="title">{{ list.title }}</h2>
 
+  @if((tasks$ | async)?.length) {
+    <div class="tasks-counter">{{(tasks$ | async)?.length}}</div>
+  }
+
   <div class="interactions">
     @if (showButton) {
-      <button mat-raised-button class="buttons" (click)="editColumn()">
-        <mat-icon>edit</mat-icon>
-      </button>
       <button class="buttons add-button" mat-button (click)="openAddTodoWindow()">
         <mat-icon>add</mat-icon>
       </button>
     }
   </div>
-
 </div>
 
 <div class="example-container">

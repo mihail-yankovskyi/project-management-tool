@@ -11,14 +11,13 @@
       <div class="name-wrapper">
         <div class="name-surname">{{ userName$ | async }}</div>
       </div>
+      @if (isAdmin$ | async) {
+        <div class="logout">
+          <button mat-raised-button (click)="openAdminPanel()">Admin Panel</button>
+        </div>
+      }
       <div class="logout">
-        <button mat-raised-button (click)="addMember()">Add Member</button>
-      </div>
-      <div class="logout">
-        <button mat-raised-button (click)="changeProjectName()">Change Project Name</button>
-      </div>
-      <div class="logout">
-        <button mat-raised-button (click)="logout()">Log out</button>
+        <button mat-raised-button (click)="logout()">Log Out</button>
       </div>
     </mat-menu>
   </div>

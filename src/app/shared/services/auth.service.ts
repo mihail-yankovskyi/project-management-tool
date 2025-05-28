@@ -60,7 +60,11 @@ export class AuthService {
   checkIsLoggedIn(): void {
     this.auth.onAuthStateChanged((user) => {
       if (user) {
-        this.store.dispatch(setUser({ email: user.email || '', displayName: user.displayName || '' }));
+        this.store.dispatch(setUser({
+          email: user.email || '',
+          displayName: user.displayName || '',
+          uid: user.uid || ''
+        }));
         this.store.dispatch(getTeamDetails());
       }
     });

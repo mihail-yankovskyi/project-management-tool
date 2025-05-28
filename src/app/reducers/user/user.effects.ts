@@ -18,7 +18,11 @@ export class UserEffects {
     switchMap((action) => {
       return this.authService.login(action.email, action.password).pipe(
         switchMap((credentials) => {
-          return [loginSuccess({ email: credentials?.user?.email || '', displayName: credentials?.user?.displayName || '' })];
+          return [loginSuccess({
+            email: credentials?.user?.email || '',
+            displayName: credentials?.user?.displayName || '',
+            uid: credentials?.user?.uid || ''
+          })];
         }),
         catchError(() => of(loginFailed()))
       )
@@ -47,7 +51,11 @@ export class UserEffects {
           if(user) {
             this.router.navigate(['/']);
           }
-          return [loginSuccess({ email: user?.email || '', displayName: user?.displayName || ''})];
+          return [loginSuccess({
+            email: user?.email || '',
+            displayName: user?.displayName || '',
+            uid: user?.uid || ''
+          })];
         }),
         catchError(() => of(registerFailed()))
       )

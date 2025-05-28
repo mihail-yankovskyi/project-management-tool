@@ -2,6 +2,11 @@
 
 <div class="admin-container">
   <div class="top-section">
+    <button class="btn btn-secondary" (click)="backToTasks()">Back to tasks</button>
+    <button class="btn btn-secondary" (click)="editColumns()">Change Column Names</button>
+  </div>
+
+  <div class="top-section">
     <div class="project-name">
       @if (teamName$ | async) {
         <div class="team-name">{{ teamName$ | async }}</div>

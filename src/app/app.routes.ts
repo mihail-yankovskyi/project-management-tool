@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { AdminComponent } from './admin/admin.component';
 import { loginGuard } from './guards/login.guard';
 import { adminGuard } from './guards/admin.guard';
+import { TeamResolver } from './shared/team.resolver';
 
 export const routes: Routes = [
   {
@@ -21,7 +22,8 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
-    canActivate: [authGuard]
+    canActivate: [adminGuard],
+    resolve: { team: TeamResolver }
   },
   {
     path: '',

@@ -10,7 +10,6 @@ export interface ITaskItem {
   dueDate?: string;
   estimatedStoryPoints: number;
   actualStoryPoints: number;
-  // assigneePhotoUrl?: string;
   order?: number;
 }
 

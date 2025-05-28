@@ -10,7 +10,9 @@ import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AddUserToTeamModal } from '../shared/components/add-user-to-team-modal/add-user-to-team-modal.component';
 import { ChangeProjectNameModal } from '../shared/components/change-project-name-modal/change-project-name-modal.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { EditColumnsModalWindowComponent } from '../edit-columns-modal-window/edit-columns-modal-window.component';
 
 @Component({
   selector: 'app-admin',
@@ -27,7 +29,10 @@ export class AdminComponent {
     .pipe(map(([usersList, team]) => usersList.filter((user) => (user.teamId === team?.id) && (user.uid !== team?.teamAdmin))));
   teamName$ = this.store.select(selectTeamName);
 
-  constructor(private store: Store<IAppState>) {}
+  constructor(
+    private router: Router,
+    private store: Store<IAppState>
+  ) {}
 
   addMember(): void {
     const dialogRef = this.dialog.open(AddUserToTeamModal);
@@ -37,6 +42,17 @@ export class AdminComponent {
 
   changeProjectName(): void {
     const dialogRef = this.dialog.open(ChangeProjectNameModal);
+
+    dialogRef.afterClosed().subscribe();
+  }
+
+  backToTasks(): void {
+    this.router.navigate(['/']);
+  }
+
+  editColumns() {
+    const dialogConfig = new MatDialogConfig();
+    const dialogRef = this.dialog.open(EditColumnsModalWindowComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe();
   }

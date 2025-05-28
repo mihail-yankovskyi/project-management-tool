@@ -14,7 +14,6 @@ import { AddTodoWindow } from '../shared/components/modal-window/modal-window.co
 import { TaskService } from '../shared/services/task.service';
 import { BehaviorSubject } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
-import { EditColumnsModalWindowComponent } from '../edit-columns-modal-window/edit-columns-modal-window.component';
 
 @Component({
   selector: 'app-task-column',
@@ -90,14 +89,6 @@ export class TaskColumnComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {listId: this.list.id};
     const dialogRef = this.dialog.open(AddTodoWindow, dialogConfig);
-
-    dialogRef.afterClosed().subscribe();
-  }
-
-  editColumn() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {listTitle: this.list.title};
-    const dialogRef = this.dialog.open(EditColumnsModalWindowComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe();
   }

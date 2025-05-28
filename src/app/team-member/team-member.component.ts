@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IUser } from '../shared/interfaces/user.interface';
 import { Store } from '@ngrx/store';
 import { IAppState } from '../reducers/app-state.interface';
@@ -11,7 +11,7 @@ import { removeTeamFromUser } from '../reducers/team-users/team-users.actions';
   templateUrl: './team-member.component.html',
   styleUrl: './team-member.component.scss'
 })
-export class TeamMemberComponent implements OnInit, OnChanges {
+export class TeamMemberComponent implements OnInit {
   @Input() user!: IUser;
   @Input() teamId!: string;
 
@@ -21,12 +21,6 @@ export class TeamMemberComponent implements OnInit, OnChanges {
   constructor(
     private readonly store: Store<IAppState>,
   ) {}
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['user']) {
-      console.log(this.user);
-    }
-  }
 
   ngOnInit(): void {
     this.initials = this.getInitials(this.user.displayName);

@@ -1,5 +1,6 @@
 .header {
   display: flex;
+  align-items: center;
   height: 50px;
   border-radius: 5px;
 }
@@ -82,6 +83,10 @@
 
 .example-full-width {
   width: 497px;
+}
+
+.tasks-counter {
+  margin-left: 12px;
 }
 
 .column-0 {

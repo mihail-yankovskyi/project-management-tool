@@ -2,15 +2,15 @@ import { Component, inject } from '@angular/core';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { Store } from '@ngrx/store';
-import { selectUserName } from '../reducers/user/user.selectors';
+import { selectUserName, selectUserUid } from '../reducers/user/user.selectors';
 import { IAppState } from '../reducers/app-state.interface';
 import { AsyncPipe } from '@angular/common';
 import { map } from 'rxjs/operators';
 import { logout } from '../reducers/user/user.actions';
 import { MatDialog } from '@angular/material/dialog';
-import { AddUserToTeamModal } from '../shared/components/add-user-to-team-modal/add-user-to-team-modal.component';
-import { selectTeamName } from '../reducers/team/team.selectors';
-import { ChangeProjectNameModal } from '../shared/components/change-project-name-modal/change-project-name-modal.component';
+import { selectTeamAdmin, selectTeamName } from '../reducers/team/team.selectors';
+import { Router } from '@angular/router';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -22,13 +22,15 @@ export class HeaderComponent {
   readonly dialog = inject(MatDialog);
 
   userName$ = this.store.select(selectUserName);
-  initials$ = this.store.select(selectUserName).pipe(
-    map(username => this.getInitials(username))
-  );
+  initials$ = this.store.select(selectUserName).pipe(map(username => this.getInitials(username)));
   teamName$ = this.store.select(selectTeamName);
+  teamAdminId$ = this.store.select(selectTeamAdmin);
+  userUid$ = this.store.select(selectUserUid);
+  isAdmin$ = combineLatest([this.teamAdminId$, this.userUid$]).pipe(map(([teamAdminId, userUid]) => teamAdminId === userUid));
 
   constructor(
     private readonly store: Store<IAppState>,
+    private readonly router: Router
   ) {}
 
   logout(): void {
@@ -39,15 +41,7 @@ export class HeaderComponent {
     return fullName.split(' ').map(name => name.charAt(0).toUpperCase()).join('');
   }
 
-  addMember(): void {
-    const dialogRef = this.dialog.open(AddUserToTeamModal);
-
-    dialogRef.afterClosed().subscribe();
-  }
-
-  changeProjectName(): void {
-    const dialogRef = this.dialog.open(ChangeProjectNameModal);
-
-    dialogRef.afterClosed().subscribe();
+  openAdminPanel(): void {
+    this.router.navigate(['admin']);
   }
 }

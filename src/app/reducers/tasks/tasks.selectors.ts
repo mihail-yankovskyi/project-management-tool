@@ -1,9 +1,9 @@
-// import { createSelector } from "@ngrx/store";
-// import { IAppState } from "../app-state.interface";
-// import { ITasksState } from "./tasks.reducer";
+import { createSelector } from "@ngrx/store";
+import { IAppState } from "../app-state.interface";
+import { ITasksState } from "./tasks.reducer";
 
-// export const todoFeature = (state: IAppState): ITasksState => state?.tasks;
+export const tasksFeature = (state: IAppState): ITasksState => state?.tasks;
 
-// export const getTeamId = (state: ITasksState) => state?.team?.id;
+export const getAllTasks = (state: ITasksState) => state?.allTasks;
 
-// export const selectTeamId = createSelector(todoFeature, getTeamId);
+export const selectAllTasks = createSelector(tasksFeature, getAllTasks);
