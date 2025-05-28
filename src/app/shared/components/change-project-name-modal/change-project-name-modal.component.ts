@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -8,11 +8,9 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { TaskService } from '../../services/task.service';
 import { Store } from '@ngrx/store';
 import { IAppState } from '../../../reducers/app-state.interface';
-import { AuthService } from '../../services/auth.service';
-import { selectCurrentTeam, selectTeamId, selectTeamName } from '../../../reducers/team/team.selectors';
+import { selectCurrentTeam } from '../../../reducers/team/team.selectors';
 import { updateTeamDetails } from '../../../reducers/team/team.actions';
 
 @Component({
@@ -31,8 +29,6 @@ export class ChangeProjectNameModal implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<ChangeProjectNameModal>,
     private formBuilder: FormBuilder,
-    private taskService: TaskService,
-    private authService: AuthService,
     private readonly store: Store<IAppState>,
     ) {}
 
@@ -64,6 +60,8 @@ export class ChangeProjectNameModal implements OnInit {
             }
           }))
         });
+
+      this.dialogRef.close();
     }
   }
 }

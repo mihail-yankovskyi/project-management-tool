@@ -1,0 +1,76 @@
+.chart-container {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 20px;
+}
+
+.custom-legend {
+  .legend-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 16px 0;
+  }
+
+  .legend-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .legend-text {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+  }
+}
+
+:host ::ng-deep {
+  .ngx-charts {
+    .pie-label {
+      font-size: 14px !important;
+      font-weight: 600 !important;
+      fill: #303030 !important;
+    }
+
+    .pie-label-line {
+      stroke: #999 !important;
+      stroke-width: 1px !important;
+      fill: none !important;
+    }
+
+    .pie-arc {
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+
+      &:hover {
+        opacity: 0.85;
+      }
+    }
+
+    .ngx-charts-tooltip {
+      .tooltip-label {
+        font-size: 14px !important;
+      }
+
+      .tooltip-val {
+        font-size: 16px !important;
+        font-weight: 600 !important;
+      }
+    }
+  }
+}

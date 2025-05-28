@@ -117,14 +117,14 @@ export class EditModalWindowComponent implements OnInit {
       }
 
       const updatedTask: ITaskItem = {
-      ...this.data.task,
-      title: updatedInfo.title,
-      description: updatedInfo.description,
-      dueDate: formattedDate || this.data.task.dueDate,
-      estimatedStoryPoints: updatedInfo.estimatedStoryPoints,
-      actualStoryPoints: updatedInfo.actualStoryPoints,
-      assignedTo: updatedInfo.assignedTo.uid
-    };
+        ...this.data.task,
+        title: updatedInfo.title,
+        description: updatedInfo.description,
+        dueDate: formattedDate || this.data.task.dueDate,
+        estimatedStoryPoints: updatedInfo.estimatedStoryPoints,
+        actualStoryPoints: updatedInfo.actualStoryPoints,
+        assignedTo: updatedInfo.assignedTo.uid
+      };
 
       this.taskService.updateTask(updatedTask);
 

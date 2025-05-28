@@ -1,21 +1,25 @@
 <app-header></app-header>
 
 <div class="admin-container">
-        <div class="top-section">
-          <div class="project-name">Project</div>
-          <button class="btn btn-secondary">Change Project Name</button>
-        </div>
-
-        <div class="users-section">
-            <div class="card-header">
-                <h2>Team Members</h2>
-                <button class="btn btn-success">+ Add New User</button>
-            </div>
-
-            <div class="user-list">
-              @for (user of realUsersList$ | async; track $index) {
-                <app-team-member [user]="user" [teamId]="(team$ | async)?.id ?? ''"></app-team-member>
-              }
-            </div>
-        </div>
+  <div class="top-section">
+    <div class="project-name">
+      @if (teamName$ | async) {
+        <div class="team-name">{{ teamName$ | async }}</div>
+      }
     </div>
+    <button class="btn btn-secondary" (click)="changeProjectName()">Change Project Name</button>
+  </div>
+
+  <div class="users-section">
+      <div class="card-header">
+          <h2>Team Members</h2>
+          <button class="btn btn-success" (click)="addMember()">+ Add New User</button>
+      </div>
+
+      <div class="user-list">
+        @for (user of realUsersList$ | async; track $index) {
+          <app-team-member [user]="user" [teamId]="(team$ | async)?.id ?? ''"></app-team-member>
+        }
+      </div>
+  </div>
+</div>

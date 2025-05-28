@@ -290,7 +290,7 @@ export class TaskService{
     return docRef.id;
   }
 
-  async addMemberToTeam(teamId: string, userEmail: string): Promise<void> {
+  async addMemberToTeam(teamId: string, userEmail: string): Promise<any> {
     if (!teamId || !userEmail) {
       return Promise.reject(new Error('Team ID and user email are required'));
     }
@@ -312,17 +312,30 @@ export class TaskService{
         return Promise.reject(new Error('User not found'));
       }
 
-      const userId = querySnapshot.docs[0].id;
+      const userDoc = querySnapshot.docs[0];
+      const userId = userDoc.id;
+      const userData = userDoc.data();
       const teamData = teamSnap.data();
       const members = teamData?.['members'] || [];
 
       if (members.includes(userId)) {
-        return Promise.resolve();
+        const userRef = doc(this.firestore, `users/${userId}`);
+        if (userData['teamId'] !== teamId) {
+          await updateDoc(userRef, { teamId: teamId });
+        }
+        return { id: userId, ...userData, teamId };
       }
 
-      return updateDoc(teamRef, {
+      await updateDoc(teamRef, {
         members: [...members, userId]
       });
+
+      const userRef = doc(this.firestore, `users/${userId}`);
+      await updateDoc(userRef, {
+        teamId: teamId
+      });
+
+      return { id: userId, ...userData, teamId };
     } catch (error) {
       console.error(error);
       return Promise.reject(error);

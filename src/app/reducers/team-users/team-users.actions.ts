@@ -9,3 +9,6 @@ export const removeTeamFromUser = createAction('[Team Users] Remove Team From Us
 export const removeTeamFromUserSuccess = createAction('[Team Users] Remove Team From User Success', props<{ teamId: string, uid: string }>());
 export const removeTeamFromUserFailed = createAction('[Team Users] Remove Team From User Failed');
 
+export const addUser = createAction('[Team Users] Add User', props<{ teamId: string, email: string }>());
+export const addUserSuccess = createAction('[Team Users] Add User Success', props<{ user: IUser }>());
+export const addUserFailed = createAction('[Team Users] Add User Failed');

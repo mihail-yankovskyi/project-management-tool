@@ -14,10 +14,11 @@ import { selectTeamId } from '../reducers/team/team.selectors';
 import { getTeamDetails } from '../reducers/team/team.actions';
 import { selectAllLists, selectAllListsIsLoading } from '../reducers/lists/lists.selectors';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { ChartComponent } from "../chart/chart.component";
 
 @Component({
   selector: 'app-project-management',
-  imports: [HeaderComponent, TaskListComponent, MatProgressSpinnerModule, MatTabsModule, AsyncPipe, MatButtonModule],
+  imports: [HeaderComponent, TaskListComponent, MatProgressSpinnerModule, MatTabsModule, AsyncPipe, MatButtonModule, ChartComponent],
   templateUrl: './project-management.component.html',
   styleUrl: './project-management.component.scss'
 })
