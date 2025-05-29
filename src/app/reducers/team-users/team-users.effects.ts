@@ -1,20 +1,24 @@
 import { inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { Store } from "@ngrx/store";
+import { catchError, from, map, of, switchMap, withLatestFrom } from "rxjs";
 import { AuthService } from "../../shared/services/auth.service";
-import { addUser, addUserFailed, addUserSuccess, getUsers, getUsersFailed, getUsersSuccess, removeTeamFromUser, removeTeamFromUserFailed, removeTeamFromUserSuccess } from "./team-users.actions";
-import { catchError, from, map, of, switchMap } from "rxjs";
 import { TaskService } from "../../shared/services/task.service";
+import { selectTeamId } from "../team/team.selectors";
+import { addUser, addUserFailed, addUserSuccess, getUsers, getUsersFailed, getUsersSuccess, removeTeamFromUser, removeTeamFromUserFailed, removeTeamFromUserSuccess } from "./team-users.actions";
 
 @Injectable()
 export class TeamUsersEffects {
   actions$ = inject(Actions);
   authService = inject(AuthService);
   taskService = inject(TaskService);
+  store = inject(Store);
 
   getUsers$ = createEffect(() => this.actions$.pipe(
     ofType(getUsers),
-    switchMap(() => {
-      return from(this.authService.getAllUsers()).pipe(
+    withLatestFrom(this.store.select(selectTeamId)),
+    switchMap(([_, teamId]) => {
+      return from(this.authService.getAllUsers(teamId)).pipe(
         map(users => getUsersSuccess({ users })),
         catchError(() => of(getUsersFailed()))
       );

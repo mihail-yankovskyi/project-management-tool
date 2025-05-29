@@ -1,21 +1,21 @@
 import { inject, Injectable } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, User, UserCredential } from '@angular/fire/auth';
-import { from, map, Observable, switchMap } from 'rxjs';
-import { IRegister } from '../interfaces/register.interface';
-import { Store } from '@ngrx/store';
-import { setUser } from '../../reducers/user/user.actions';
 import {
-  Firestore,
   collection,
   doc,
+  Firestore,
   query,
   setDoc,
   updateDoc,
   where,
 } from '@angular/fire/firestore';
+import { Store } from '@ngrx/store';
 import { arrayRemove, DocumentReference, getDoc, getDocs, writeBatch } from 'firebase/firestore';
-import { IUser } from '../interfaces/user.interface';
+import { from, map, Observable, switchMap } from 'rxjs';
 import { getTeamDetails } from '../../reducers/team/team.actions';
+import { setUser } from '../../reducers/user/user.actions';
+import { IRegister } from '../interfaces/register.interface';
+import { IUser } from '../interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -129,13 +129,14 @@ export class AuthService {
     }
   }
 
-  async getAllUsers(): Promise<IUser[]> {
+  async getAllUsers(teamId: string = ''): Promise<IUser[]> {
     try {
       const usersCollectionRef = collection(this.firestore, 'users');
-      const usersSnapshot = await getDocs(usersCollectionRef);
-      const users = usersSnapshot.docs.map(doc => {
-      const userData = doc.data();
+      const teamUsersQuery = query(usersCollectionRef, where('teamId', '==', teamId));
+      const usersSnapshot = await getDocs(teamUsersQuery);
 
+      const users = usersSnapshot.docs.map(doc => {
+        const userData = doc.data();
         return {
           displayName: userData['displayName'] || '',
           email: userData['email'] || '',

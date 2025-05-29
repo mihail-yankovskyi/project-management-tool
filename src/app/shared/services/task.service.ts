@@ -13,7 +13,7 @@ import {
   writeBatch
 } from '@angular/fire/firestore';
 import { getDoc, getDocs, runTransaction, serverTimestamp } from 'firebase/firestore';
-import { from, Observable, of, throwError } from 'rxjs';
+import { Observable, from, of, throwError } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { IList, ITaskItem, ITasksByList, ITeam } from '../interfaces/task-item.interface';
 import { AuthService } from './auth.service';
@@ -125,9 +125,23 @@ export class TaskService{
     return collectionData(listTasksQuery, { idField: 'id' }) as Observable<ITaskItem[]>;
   }
 
-  getAllTasksGrouped(): Observable<ITasksByList> {
-    const tasksRef = collection(this.firestore, 'tasks');
-    return collectionData(tasksRef, { idField: 'id' }).pipe(
+  getAllTasksGrouped(teamId: string = ''): Observable<ITasksByList> {
+    const listsRef = collection(this.firestore, 'lists');
+    const teamListsQuery = query(listsRef, where('teamId', '==', teamId));
+
+    return collectionData(teamListsQuery, { idField: 'id' }).pipe(
+      switchMap((lists: any[]) => {
+        const listIds = lists.map(list => list.id);
+
+        if (listIds.length === 0) {
+          return of([]);
+        }
+
+        const tasksRef = collection(this.firestore, 'tasks');
+        const teamTasksQuery = query(tasksRef, where('listId', 'in', listIds));
+
+        return collectionData(teamTasksQuery, { idField: 'id' });
+      }),
       map((tasks: any[]) => {
         const groupedTasks: { [listId: string]: ITaskItem[] } = {};
 
@@ -150,7 +164,6 @@ export class TaskService{
           if (!groupedTasks[task.listId]) {
             groupedTasks[task.listId] = [];
           }
-
           groupedTasks[task.listId].push(taskItem);
         });
 

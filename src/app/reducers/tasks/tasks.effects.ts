@@ -1,9 +1,10 @@
 import { inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
+import { catchError, of, switchMap, withLatestFrom } from "rxjs";
 import { TaskService } from "../../shared/services/task.service";
+import { selectTeamId } from "../team/team.selectors";
 import { getTasks, getTasksFailed, getTasksSuccess } from "./tasks.actions";
-import { catchError, of, switchMap } from "rxjs";
 
 @Injectable()
 export class TasksEffects {
@@ -13,8 +14,9 @@ export class TasksEffects {
 
   getTasks$ = createEffect(() => this.actions$.pipe(
     ofType(getTasks),
-    switchMap(() => {
-      return this.taskService.getAllTasksGrouped().pipe(
+    withLatestFrom(this.store.select(selectTeamId)),
+    switchMap(([_, teamId]) => {
+      return this.taskService.getAllTasksGrouped(teamId).pipe(
         switchMap((result) => [getTasksSuccess({tasks: result})]),
         catchError(() => of(getTasksFailed()))
       )
