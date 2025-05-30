@@ -150,8 +150,26 @@
   font-size: 18px;
 }
 
+.action-button mat-icon {
+  margin-right: 4px;
+  font-size: 18px;
+}
+
 .delete-button {
-  color: red;
+  transition: all 0.1s ease;
+
+  mat-icon {
+    color: #ef4444;
+    margin: 0 !important;
+  }
+
+  &:hover {
+    transform: scale(1.04);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
 }
 
 .due-date-in-past {
@@ -160,6 +178,10 @@
 
 .is-actual-story-poinst {
   color: rgb(0, 214, 29)
+}
+
+.estimated {
+  padding-top: 11px;
 }
 
 ::-webkit-scrollbar {

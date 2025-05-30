@@ -6,18 +6,19 @@
     }
   </div>
   <div class="personal-information">
-    <button class="initials" mat-button [matMenuTriggerFor]="beforeMenu">{{ initials$ | async }}</button>
+    <button class="initials" [matMenuTriggerFor]="beforeMenu" [ngStyle]="{'background-color': userColor}">{{ initials$ | async }}</button>
     <mat-menu class="menu" #beforeMenu="matMenu" xPosition="before">
       <div class="name-wrapper">
         <div class="name-surname">{{ userName$ | async }}</div>
       </div>
       @if (isAdmin$ | async) {
-        <div class="logout">
-          <button mat-raised-button (click)="openAdminPanel()">Admin Panel</button>
+        <div class="admin-panel">
+          <button mat-raised-button (click)="openAdminPanel()"><mat-icon>admin_panel_settings</mat-icon>Admin Panel</button>
         </div>
       }
       <div class="logout">
-        <button mat-raised-button (click)="logout()">Log Out</button>
+
+        <button mat-raised-button (click)="logout()"><mat-icon>logout</mat-icon>Log Out</button>
       </div>
     </mat-menu>
   </div>

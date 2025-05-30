@@ -11,8 +11,6 @@
     [tooltipDisabled]="false">
   </ngx-charts-pie-chart>
 
-  <div>{{ tasksCount$ | async }}</div>
-
   @if(tasksCount$ | async) {
     <div class="custom-legend">
       <h3 class="legend-title">Columns</h3>
@@ -26,4 +24,9 @@
       </div>
     </div>
   }
+
+  <div class="task-counter">
+    <div class="counter-label">All tasks</div>
+    <div class="counter-value">{{ tasksCount$ | async }}</div>
+  </div>
 </div>

@@ -7,7 +7,7 @@
 }
 
 @if ((lists$ | async)?.length && !(allListsIsLoading$ | async)){
-  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="0ms">
     <mat-tab label="Board">
       <div class="board-wrapper">
         <app-task-list [lists]="lists$ | async"></app-task-list>
