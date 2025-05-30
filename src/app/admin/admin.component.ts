@@ -26,7 +26,10 @@ export class AdminComponent {
   usersList$ = this.store.select(selectRealTeamUsers);
   team$ = this.store.select(selectCurrentTeam);
   realUsersList$ = combineLatest([this.usersList$, this.team$])
-    .pipe(map(([usersList, team]) => usersList.filter((user) => (user.teamId === team?.id) && (user.uid !== team?.teamAdmin))));
+    .pipe(
+      map(([usersList, team]) => usersList.filter((user) => {
+        return (user.teamId === team?.id) && (user.uid !== team?.teamAdmin);
+      })));
   teamName$ = this.store.select(selectTeamName);
 
   constructor(

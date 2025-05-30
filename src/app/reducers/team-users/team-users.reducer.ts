@@ -24,14 +24,5 @@ export const teamUsersReducer = createReducer(
       ...state,
       teamUsers: state.teamUsers.filter((teamUser) => teamUser.uid !== uid)
     }
-  }),
-  on(addUserSuccess, (state, { user }) => {
-    return {
-      ...state,
-      teamUsers: [
-        ...state.teamUsers,
-        user
-      ]
-    }
   })
 );
